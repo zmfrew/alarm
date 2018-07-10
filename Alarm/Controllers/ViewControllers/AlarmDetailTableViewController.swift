@@ -25,6 +25,11 @@ class AlarmDetailTableViewController: UITableViewController {
     @IBAction func enableButtonTapped(_ sender: Any) {
         guard let alarm = alarm else { return }
         AlarmController.shared.toggleEnabled(for: alarm)
+        if alarm.enabled {
+            scheduleUserNotifications(for: alarm)
+        } else {
+            cancelUserNotifications(for: alarm)
+        }
         updateViews()
     }
     
@@ -36,8 +41,11 @@ class AlarmDetailTableViewController: UITableViewController {
         let timeIntervalSinceMidnight = alarmDatePicker.date.timeIntervalSince(thisMorningAtMidnight)
         if let alarm = alarm {
             AlarmController.shared.update(alarm: alarm, fireTimeFromMidnight: timeIntervalSinceMidnight, name: alarmName)
+            cancelUserNotifications(for: alarm)
+            scheduleUserNotifications(for: alarm)
         } else {
-            AlarmController.shared.addAlarm(fireTimeFromMidnight: timeIntervalSinceMidnight, name: alarmName)
+            let newAlarm = AlarmController.shared.addAlarm(fireTimeFromMidnight: timeIntervalSinceMidnight, name: alarmName)
+            scheduleUserNotifications(for: newAlarm)
         }
         navigationController?.popViewController(animated: true)
     }
@@ -70,5 +78,10 @@ class AlarmDetailTableViewController: UITableViewController {
         }
         self.title = alarm.name
     }
+    
+}
+
+// MARK: - Protocol Adoption
+extension AlarmDetailTableViewController: AlarmScheduler {
     
 }

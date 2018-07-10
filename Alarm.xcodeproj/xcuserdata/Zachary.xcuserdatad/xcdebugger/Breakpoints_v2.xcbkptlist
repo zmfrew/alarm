@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Controllers/ViewControllers/AlarmDetailTableViewController.swift"
-            timestampString = "552948223.277109"
+            timestampString = "552950489.174509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "alarm"
-            landmarkType = "24">
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "saveButtonTapped(_:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"

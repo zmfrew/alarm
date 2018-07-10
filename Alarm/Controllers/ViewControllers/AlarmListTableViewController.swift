@@ -41,6 +41,7 @@ class AlarmListTableViewController: UITableViewController {
         if editingStyle == .delete {
             let alarmToDelete = AlarmController.shared.alarms[indexPath.row]
             AlarmController.shared.delete(alarm: alarmToDelete)
+            cancelUserNotifications(for: alarmToDelete)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } 
     }
@@ -63,10 +64,12 @@ extension AlarmListTableViewController: SwitchTableViewCellDelegate, AlarmSchedu
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let alarm = AlarmController.shared.alarms[indexPath.row]
         AlarmController.shared.toggleEnabled(for: alarm)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
         if alarm.enabled {
-            
+            scheduleUserNotifications(for: alarm)
+        } else {
+            cancelUserNotifications(for: alarm)
         }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
 }
